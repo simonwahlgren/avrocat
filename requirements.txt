@@ -1,0 +1,3 @@
+docopt
+ujson
+git+https://github.com/fyndiq/confluent_kafka_helpers#egg=confluent_kafka_helpers
