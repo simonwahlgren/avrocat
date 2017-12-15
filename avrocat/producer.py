@@ -1,4 +1,5 @@
 import sys
+import uuid
 
 import ujson as json
 
@@ -18,6 +19,7 @@ class Producer:
         self.topic = kwargs['--topic']
         self.key = kwargs['--key']
         self.value, self.stdin = kwargs['--value'], sys.stdin
+        self.num_messages = int(kwargs['--num-messages'])
         self.config = {
             'bootstrap.servers': self.broker,
             'schema.registry.url': self.registry,
@@ -37,6 +39,9 @@ class Producer:
         except ValueError:
             raise InvalidJSON("Value is not valid JSON")
 
-        self.producer.produce(key=self.key, value=self.value, topic=self.topic)
-        self.producer.poll(0)
+        for i in range(0, self.num_messages):
+            key = self.key or str(uuid.uuid4())
+            self.producer.produce(key=key, value=self.value, topic=self.topic)
+            self.producer.poll(0)
+
         self.producer.flush()

@@ -3,21 +3,22 @@ Kafka Avro producer and consumer.
 
 Usage:
   avrocat produce -t <topic> [-v <value>] [-k <key>] [-b <broker>]
-                             [-r <registry>]
+                             [-r <registry>] [-n <num_messages>]
   avrocat consume -t <topic> [--exit] [-g <group>]
 
 Commands:
-    produce                 Produce Avro message to a topic.
-    consumer                Consume Avro messages from one or multiple topics.
+    produce                         Produce Avro message to a topic.
+    consumer                        Consume Avro messages from one or multiple topics.
 
 Options:
-  -t --topic=<topic>        One (P) or multiple (C) comma separated topics.
-  -v --value=<value>        Message value (JSON).
-  -k --key=<key>            Message key.
-  -b --broker=<broker>      Kafka broker address [default: localhost:9092].
-  -r --registry=<registry>  Schema registry URL [default: http://localhost:8081].
-  -g --group=<group>        Consumer group.
-  --exit                    Exit after last message is consumed.
+  -t --topic=<topic>                One (P) or multiple (C) comma separated topics.
+  -v --value=<value>                Message value (JSON).
+  -k --key=<key>                    Message key.
+  -n --num-messages=<num_messages>  Number of messages to produce [default: 1].
+  -b --broker=<broker>              Kafka broker address [default: localhost:9092].
+  -r --registry=<registry>          Schema registry URL [default: http://localhost:8081].
+  -g --group=<group>                Consumer group.
+  --exit                            Exit after last message is consumed.
 """
 from docopt import docopt
 
