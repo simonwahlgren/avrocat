@@ -17,10 +17,11 @@ setup(
     install_requires=[
         "docopt>=0.6.2",
         "ujson>=1.35",
-        "confluent-kafka-helpers>=0"
+        "structlog==17.2.0",
+        "confluent-kafka-helpers>=0.4.3"
     ],
     dependency_links=[
-        "git+https://github.com/fyndiq/confluent_kafka_helpers#egg=confluent-kafka-helpers-1"
+        "git+https://github.com/fyndiq/confluent_kafka_helpers@v0.4.3#egg=confluent-kafka-helpers-0.4.3"
     ],
     zip_safe=False
 )

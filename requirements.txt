@@ -1,3 +1,4 @@
+structlog
 docopt
 ujson
-git+https://github.com/fyndiq/confluent_kafka_helpers#egg=confluent_kafka_helpers
+git+https://github.com/fyndiq/confluent_kafka_helpers@0.4.3#egg=confluent_kafka_helpers
