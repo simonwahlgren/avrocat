@@ -17,7 +17,7 @@ Options:
   -v --value=<value>                    Message value (JSON).
   -k --key=<key>                        Message key.
   -n --num-messages=<num_messages>      Number of messages to produce [default: 1].
-  -b --broker=<broker>                  Kafka broker address [default: localhost:9092].
+  -b --broker=<broker>                  Kafka broker address [default: localhost:9094].
   -r --registry=<registry>              Schema registry URL [default: http://localhost:8081].
   -g --group=<group>                    Consumer group.
   -P --partitions=<partitions>          Number of partitions on topic. Must be set when using --key

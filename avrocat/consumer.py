@@ -18,19 +18,19 @@ class Consumer:
         self._exit = kwargs['--exit']
         self._enable_timestamps = kwargs['--enable-timestamps']
 
-        consumer_config = {
+        self.consumer_config = {
             'bootstrap.servers': self._broker,
             'schema.registry.url': self._registry,
             'topics': [self._topic],
-            'stop_on_eof': True,
-            'poll_timeout': 0.1,
+            # 'stop_on_eof': True,
+            # 'poll_timeout': 0.1,
             'group.id': self._group,
             'default.topic.config': {
                 'auto.offset.reset': 'earliest'
             },
-            # 'fetch.message.max.bytes': 10500,
+            'fetch.message.max.bytes': 10500,
         }
-        loader_config = {
+        self.loader_config = {
             'bootstrap.servers': self._broker,
             'schema.registry.url': self._registry,
             'topic': self._topic,
@@ -40,17 +40,17 @@ class Consumer:
                 'schema.registry.url': self._registry,
             }
         }
-        self.loader = AvroMessageLoader(loader_config)
-        self.consumer = AvroConsumer(consumer_config)
 
     def consume(self):
         if self._key:
+            self.loader = AvroMessageLoader(self.loader_config)
             for message in self.loader.load(self._key):
                 if self._enable_timestamps:
                     print(f"{message._meta.datetime} {message.value}")
                 else:
                     print(f"{message.value}")
         else:
+            self.consumer = AvroConsumer(self.consumer_config)
             with self.consumer as consumer:
                 for message in consumer:
                     if self._enable_timestamps:
