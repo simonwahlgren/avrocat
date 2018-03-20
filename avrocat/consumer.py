@@ -27,8 +27,7 @@ class Consumer:
             'group.id': self._group,
             'default.topic.config': {
                 'auto.offset.reset': 'earliest'
-            },
-            'fetch.message.max.bytes': 10500,
+            }
         }
         self.loader_config = {
             'bootstrap.servers': self._broker,
