@@ -33,12 +33,12 @@ def setup():
         'loggers': {
             '': {
                 'handlers': ['console'],
-                'level': 'INFO',
+                'level': 'DEBUG',
                 'propagate': False
             },
             'confluent_kafka_helpers': {
                 'handlers': ['console'],
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'propagate': False,
             }
         }
