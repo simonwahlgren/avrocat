@@ -20,6 +20,7 @@ avrocat consume -t <topic> -b <broker> -r <schema_registry> --enable-timestamps
 UUID="${2:-$(uuidgen)}"
 jq --arg uuid $UUID '.data.id=$uuid' CreateFoo.json | avrocat produce -t <topic> -n <num_messages> -k $UUID
 ```
+CreateFoo.json:
 ```json
 {
     "class": "CreateFoo",
