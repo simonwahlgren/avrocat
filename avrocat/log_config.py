@@ -40,6 +40,11 @@ def setup():
                 'handlers': ['console'],
                 'level': 'DEBUG',
                 'propagate': False,
+            },
+            'datadog': {
+                'handlers': ['console'],
+                'level': 'ERROR',
+                'propagate': False,
             }
         }
     })
