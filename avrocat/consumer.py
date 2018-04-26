@@ -13,7 +13,7 @@ class Consumer:
         self._registry = kwargs['--registry']
         self._topic = kwargs['--topic']
         self._num_partitions = kwargs['--partitions']
-        self._group = kwargs.get('group', str(uuid.uuid4()))
+        self._group = kwargs.get('--group', str(uuid.uuid4()))
         self._key = kwargs['--key']
         self._exit = kwargs['--exit']
         self._enable_timestamps = kwargs['--enable-timestamps']
@@ -22,9 +22,8 @@ class Consumer:
             'bootstrap.servers': self._broker,
             'schema.registry.url': self._registry,
             'topics': [self._topic],
-            # 'stop_on_eof': True,
-            # 'poll_timeout': 0.1,
             'group.id': self._group,
+            'enable.auto.commit': True,
             'default.topic.config': {
                 'auto.offset.reset': 'earliest'
             }
@@ -36,7 +35,7 @@ class Consumer:
             'num_partitions': self._num_partitions,
             'consumer': {
                 'bootstrap.servers': self._broker,
-                'schema.registry.url': self._registry,
+                'schema.registry.url': self._registry
             }
         }
 
