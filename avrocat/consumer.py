@@ -13,7 +13,7 @@ class Consumer:
         self._registry = kwargs['--registry']
         self._topic = kwargs['--topic']
         self._num_partitions = kwargs['--partitions']
-        self._group = kwargs.get('--group', str(uuid.uuid4()))
+        self._group = kwargs['--group'] or str(uuid.uuid4())
         self._key = kwargs['--key']
         self._exit = kwargs['--exit']
         self._enable_timestamps = kwargs['--enable-timestamps']
