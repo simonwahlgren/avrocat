@@ -44,9 +44,9 @@ class Consumer:
             self.loader = AvroMessageLoader(self.loader_config)
             for message in self.loader.load(self._key):
                 if self._enable_timestamps:
-                    print(f"{message._meta.datetime} {message.value}")
+                    print(f"{message._meta.datetime} {message._meta.offset} {message._meta.partition}  {message.value}")
                 else:
-                    print(f"{message.value}")
+                    print(f"{message._meta.offset} {message._meta.partition} {message.value}")
         else:
             self.consumer = AvroConsumer(self.consumer_config)
             with self.consumer as consumer:
