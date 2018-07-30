@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="avrocat",
-    version="0.1",
+    version="0.3",
     description="Kafka Avro consumer and producer",
     url="https://github.com/simonwahlgren/avrocat",
     author="Simon Wahlgren",
@@ -16,11 +16,9 @@ setup(
     },
     install_requires=[
         "docopt>=0.6.2",
-        "structlog==17.2.0",
-        "confluent-kafka-helpers>=0.4.3"
-    ],
-    dependency_links=[
-        "git+https://github.com/fyndiq/confluent_kafka_helpers@v0.5.1#egg=confluent-kafka-helpers-0.5.1"
+        "structlog>=17.2.0",
+        "requests",
+        "confluent_kafka_helpers>=0.6.1"
     ],
     zip_safe=False
 )
