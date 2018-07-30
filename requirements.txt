@@ -1,4 +1,4 @@
 structlog
 docopt
-ujson
-git+https://github.com/fyndiq/confluent_kafka_helpers@v0.5.2#egg=confluent_kafka_helpers
+requests
+confluent_kafka_helpers

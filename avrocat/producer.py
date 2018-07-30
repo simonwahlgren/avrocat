@@ -1,7 +1,6 @@
+import json
 import sys
 import uuid
-
-import ujson as json
 
 from confluent_kafka_helpers.producer import AvroProducer
 

@@ -1,0 +1,2 @@
+-e /home/simon/dev/confluent_kafka_helpers
+-e /home/simon/dev/eventsourcing_helpers
