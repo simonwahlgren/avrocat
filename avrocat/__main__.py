@@ -9,8 +9,8 @@ Usage:
                              [--enable-timestamps]
 
 Commands:
-    produce                             Produce Avro message to a topic.
-    consumer                            Consume Avro messages from one or multiple topics.
+  produce                             Produce Avro message to a topic.
+  consumer                            Consume Avro messages from one or multiple topics.
 
 Options:
   -t --topic=<topic>                    One (P) or multiple (C) comma separated topics.
