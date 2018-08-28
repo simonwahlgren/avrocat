@@ -1,16 +1,18 @@
+import os
 import uuid
+
 import structlog
 
-from confluent_kafka_helpers.loader import AvroMessageLoader
 from confluent_kafka_helpers.consumer import AvroConsumer
+from confluent_kafka_helpers.loader import AvroMessageLoader
 
 logger = structlog.get_logger(__name__)
 
 
 class Consumer:
     def __init__(self, **kwargs):
-        self._broker = kwargs['--broker']
-        self._registry = kwargs['--registry']
+        self._broker = os.getenv('KAFKA_BROKER', kwargs['--broker'])
+        self._registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
         self._topic = kwargs['--topic']
         self._num_partitions = kwargs['--partitions']
         self._group = kwargs['--group'] or str(uuid.uuid4())

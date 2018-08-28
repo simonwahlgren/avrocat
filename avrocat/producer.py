@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 import uuid
 
@@ -13,8 +14,8 @@ class Producer:
     DEFAULT_CONFIG = {}
 
     def __init__(self, producer=AvroProducer, **kwargs):
-        self.broker = kwargs['--broker']
-        self.registry = kwargs['--registry']
+        self.broker = os.getenv('KAFKA_BROKER', kwargs['--broker'])
+        self.registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
         self.topic = kwargs['--topic']
         self.key = kwargs['--key']
         self.value, self.stdin = kwargs['--value'], sys.stdin
