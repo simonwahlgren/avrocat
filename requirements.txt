@@ -1,4 +1,5 @@
-structlog
+structlog[dev]
 docopt
 requests
 confluent_kafka_helpers
+ipdb
