@@ -3,3 +3,4 @@ docopt
 requests
 confluent_kafka_helpers
 ipdb
+pdbpp
