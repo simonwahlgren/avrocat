@@ -3,10 +3,10 @@ Kafka Avro producer and consumer.
 
 Usage:
   avrocat produce -t <topic> [-v <value>] [-k <key>] [-b <broker>]
-                             [-r <registry>] [-n <num_messages>]
+                             [-r <registry>] [-n <num_messages>] [-X <extra_config>]
   avrocat consume -t <topic> [--exit] [-g <group>] [-b <broker>] [-r <registry]
-                             [(-P <partitions> -k <key>)]
-                             [--enable-timestamps]
+                             [(-P <partitions> -k <key>)] [-X <extra_config>]
+                             [--enable-timestamps] [--remove-null-values]
 
 Commands:
   produce                             Produce Avro message to a topic.
@@ -22,7 +22,10 @@ Options:
   -g --group=<group>                    Consumer group.
   -P --partitions=<partitions>          Number of partitions on topic. Must be set when using --key
                                         [default: 8].
+  -X --extra-config=<extra_config>      Extra configuration properties passed to librdkafka.
+                                        Example: -X prop=val,prop=val
   --enable-timestamps                   Display message timestamps [default: False].
+  --remove-null-values                  Remove null values from consumed messages [default: False].
   --exit                                Exit after last message is consumed.
 """
 from docopt import docopt

@@ -19,6 +19,7 @@ class Consumer:
         self._key = kwargs['--key']
         self._exit = kwargs['--exit']
         self._enable_timestamps = kwargs['--enable-timestamps']
+        self._remove_null_values = kwargs['--remove-null-values']
 
         self.consumer_config = {
             'bootstrap.servers': self._broker,

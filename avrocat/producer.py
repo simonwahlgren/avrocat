@@ -3,6 +3,8 @@ import os
 import sys
 import uuid
 
+from avrocat.utils import format_extra_config
+
 from confluent_kafka_helpers.producer import AvroProducer
 
 
@@ -20,13 +22,17 @@ class Producer:
         self.key = kwargs['--key']
         self.value, self.stdin = kwargs['--value'], sys.stdin
         self.num_messages = int(kwargs['--num-messages'])
-        self.config = {
+
+        config = {
             'bootstrap.servers': self.broker,
             'schema.registry.url': self.registry,
             'topics': [self.topic],
             **self.DEFAULT_CONFIG
         }
-        self.producer = producer(self.config)
+        extra_config = format_extra_config(kwargs.get('--extra-config') or {})
+        config = {**config, **extra_config}
+
+        self.producer = producer(config)
 
     def produce(self):
         if not self.value and self.stdin.isatty():
