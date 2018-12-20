@@ -1,8 +1,11 @@
 import logging
 import logging.config
+import os
 
 import structlog
 
+LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
+LOG_VERBOSITY_LEVEL = os.getenv('LOG_VERBOSITY_LEVEL', 0)
 
 def setup():
     timestamper = structlog.processors.TimeStamper(
@@ -25,7 +28,7 @@ def setup():
         },
         'handlers': {
             'console': {
-                'level': 'DEBUG',
+                'level': LOG_LEVEL,
                 'class': 'logging.StreamHandler',
                 'formatter': 'dev'
             }
@@ -38,7 +41,7 @@ def setup():
             },
             'confluent_kafka_helpers': {
                 'handlers': ['console'],
-                'level': 'DEBUG',
+                'level': 'DEBUG' if LOG_VERBOSITY_LEVEL >= 1 else 'WARNING',
                 'propagate': False,
             },
             'datadog': {
