@@ -7,6 +7,7 @@ import structlog
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 LOG_VERBOSITY_LEVEL = os.getenv('LOG_VERBOSITY_LEVEL', 0)
 
+
 def setup():
     timestamper = structlog.processors.TimeStamper(
         fmt="%Y-%m-%d %H:%M:%S", utc=False
