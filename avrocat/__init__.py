@@ -1,12 +1,13 @@
 import pkg_resources
 
-from avrocat.consumer import Consumer
-from avrocat.producer import Producer
 from avrocat import log_config
 
 __version__ = pkg_resources.require("avrocat")[0].version
 
 log_config.setup()
+
+from avrocat.consumer import Consumer  # isort: skip  # noqa
+from avrocat.producer import Producer  # isort: skip  # noqa
 
 
 class AvroCat:
