@@ -47,17 +47,21 @@ class Consumer:
         if self._key:
             self.loader = AvroMessageLoader(self.loader_config)
             for message in self.loader.load(self._key):
-                value = message.value
-                if self._enable_timestamps:
-                    print(f"{message._meta.datetime} {message._meta.offset} {message._meta.partition} {value}")
-                else:
-                    print(json.dumps(value))
+                data = {
+                    'datetime': str(message._meta.datetime),
+                    'partition': message._meta.partition,
+                    'key': message._meta.key,
+                    'value': message.value
+                }
+                print(json.dumps(data))
         else:
             self.consumer = AvroConsumer(self.consumer_config)
             with self.consumer as consumer:
                 for message in consumer:
-                    value = message.value
-                    if self._enable_timestamps:
-                        print(f"{message._meta.datetime} {message._meta.partition}:{message._meta.key}:{value}")
-                    else:
-                        print(f"{message._meta.partition}:{message._meta.key}:{value}")
+                    data = {
+                        'datetime': str(message._meta.datetime),
+                        'partition': message._meta.partition,
+                        'key': message._meta.key,
+                        'value': message.value
+                    }
+                    print(json.dumps(data))
