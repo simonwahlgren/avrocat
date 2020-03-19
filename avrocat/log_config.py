@@ -5,7 +5,7 @@ import os
 import structlog
 
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
-LOG_VERBOSITY_LEVEL = os.getenv('LOG_VERBOSITY_LEVEL', 0)
+LOG_VERBOSITY_LEVEL = int(os.getenv('LOG_VERBOSITY_LEVEL', '0'))
 
 
 def setup():
