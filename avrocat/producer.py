@@ -20,8 +20,12 @@ class Producer:
         self.registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
         self.topic = kwargs['--topic']
         self.key = kwargs['--key']
-        self.value, self.stdin = kwargs['--value'], sys.stdin
         self.num_messages = int(kwargs['--num-messages'])
+        self.value, self.stdin = kwargs['--value'], sys.stdin
+        self.file = kwargs['--file']
+        if self.file:
+            with open(self.file) as json_file:
+                self.value = json_file.read()
 
         config = {
             'bootstrap.servers': self.broker,
