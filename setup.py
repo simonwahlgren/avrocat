@@ -2,13 +2,14 @@ from setuptools import find_packages, setup
 
 setup(
     name="avrocat",
-    version="0.3",
+    version="0.4",
     description="Kafka Avro consumer and producer",
     url="https://github.com/simonwahlgren/avrocat",
     author="Simon Wahlgren",
     author_email="simon.wahlgren@gmail.com",
     license="MIT",
     packages=find_packages(),
+    setup_requires=['wheel'],
     entry_points={
         "console_scripts": [
             "avrocat=avrocat.__main__:main"
