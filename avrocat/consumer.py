@@ -12,7 +12,7 @@ logger = structlog.get_logger(__name__)
 
 class Consumer:
     def __init__(self, **kwargs):
-        self._broker = os.getenv('KAFKA_BROKER', kwargs['--broker'])
+        self._broker = os.getenv('KAFKA_BROKERS', kwargs['--broker'])
         self._registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
         self._topic = kwargs['--topic']
         self._num_partitions = kwargs['--partitions']

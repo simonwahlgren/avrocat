@@ -16,7 +16,7 @@ class Producer:
     DEFAULT_CONFIG = {}
 
     def __init__(self, producer=AvroProducer, **kwargs):
-        self.broker = os.getenv('KAFKA_BROKER', kwargs['--broker'])
+        self.broker = os.getenv('KAFKA_BROKERS', kwargs['--broker'])
         self.registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
         self.topic = kwargs['--topic']
         self.key = kwargs['--key']
