@@ -6,6 +6,7 @@ import uuid
 from avrocat.utils import format_extra_config
 
 from confluent_kafka_helpers.producer import AvroProducer
+from confluent_kafka_helpers.schema_registry.subject import SubjectNameStrategies
 
 
 class InvalidJSON(Exception):
@@ -13,7 +14,10 @@ class InvalidJSON(Exception):
 
 
 class Producer:
-    DEFAULT_CONFIG = {}
+    DEFAULT_CONFIG = {
+        'schemas.key.subject.name.strategy': SubjectNameStrategies.TOPICNAME,
+        'schemas.value.subject.name.strategy': SubjectNameStrategies.TOPICNAME,
+    }
 
     def __init__(self, producer=AvroProducer, **kwargs):
         self.broker = os.getenv('KAFKA_BROKER', kwargs['--broker'])
