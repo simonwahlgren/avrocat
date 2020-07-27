@@ -24,6 +24,7 @@ class Consumer:
         self._enable_timestamps = kwargs['--enable-timestamps']
         self._remove_null_values = kwargs['--remove-null-values']
 
+        extra_config = format_extra_config(kwargs.get('--extra-config') or {})
         self.consumer_config = {
             'bootstrap.servers': self._broker,
             'schema.registry.url': self._registry,
@@ -32,7 +33,8 @@ class Consumer:
             'enable.auto.commit': True,
             'default.topic.config': {
                 'auto.offset.reset': 'earliest'
-            }
+            },
+            **extra_config
         }
         self.loader_config = {
             'bootstrap.servers': self._broker,
@@ -41,14 +43,14 @@ class Consumer:
             'num_partitions': self._num_partitions,
             'consumer': {
                 'bootstrap.servers': self._broker,
-                'schema.registry.url': self._registry
+                'schema.registry.url': self._registry,
+                **extra_config
             }
         }
-        self.extra_config = format_extra_config(kwargs.get('--extra-config') or {})
 
     def consume(self):
         if self._key:
-            self.loader = AvroMessageLoader({**self.loader_config, **self.extra_config})
+            self.loader = AvroMessageLoader(self.loader_config)
             for message in self.loader.load(self._key):
                 data = {
                     'datetime': str(message._meta.datetime),
@@ -58,7 +60,7 @@ class Consumer:
                 }
                 print(json.dumps(data))
         else:
-            self.consumer = AvroConsumer({**self.consumer_config, **self.extra_config})
+            self.consumer = AvroConsumer(self.consumer_config)
             with self.consumer as consumer:
                 for message in consumer:
                     data = {
