@@ -4,3 +4,6 @@ requests
 confluent_kafka_helpers
 ipdb
 pdbpp
+
+flake8
+flake8-isort
