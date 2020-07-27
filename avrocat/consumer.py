@@ -4,6 +4,8 @@ import uuid
 
 import structlog
 
+from avrocat.utils import format_extra_config
+
 from confluent_kafka_helpers.consumer import AvroConsumer
 from confluent_kafka_helpers.loader import AvroMessageLoader
 
@@ -42,10 +44,11 @@ class Consumer:
                 'schema.registry.url': self._registry
             }
         }
+        self.extra_config = format_extra_config(kwargs.get('--extra-config') or {})
 
     def consume(self):
         if self._key:
-            self.loader = AvroMessageLoader(self.loader_config)
+            self.loader = AvroMessageLoader({**self.loader_config, **self.extra_config})
             for message in self.loader.load(self._key):
                 data = {
                     'datetime': str(message._meta.datetime),
@@ -55,7 +58,7 @@ class Consumer:
                 }
                 print(json.dumps(data))
         else:
-            self.consumer = AvroConsumer(self.consumer_config)
+            self.consumer = AvroConsumer({**self.consumer_config, **self.extra_config})
             with self.consumer as consumer:
                 for message in consumer:
                     data = {
