@@ -23,6 +23,7 @@ class Consumer:
         self._exit = kwargs['--exit']
         self._enable_timestamps = kwargs['--enable-timestamps']
         self._remove_null_values = kwargs['--remove-null-values']
+        self._enable_headers = kwargs['--enable-headers']
 
         extra_config = format_extra_config(kwargs.get('--extra-config') or {})
         self.consumer_config = {
@@ -69,4 +70,6 @@ class Consumer:
                         'key': message._meta.key,
                         'value': message.value
                     }
+                    if self._enable_headers:
+                        data['headers'] = str(message._raw.headers())
                     print(json.dumps(data))

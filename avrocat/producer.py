@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import uuid
+from time import sleep
 
 from avrocat.utils import format_extra_config
 
@@ -21,6 +22,7 @@ class Producer:
         self.topic = kwargs['--topic']
         self.key = kwargs['--key']
         self.num_messages = int(kwargs['--num-messages'])
+        self.per_second = int(kwargs.get('--per-second', 0) or 0)
         self.value, self.stdin = kwargs['--value'], sys.stdin
         self.file = kwargs['--file']
         if self.file:
@@ -31,7 +33,8 @@ class Producer:
             'bootstrap.servers': self.broker,
             'schema.registry.url': self.registry,
             'topics': [self.topic],
-            **self.DEFAULT_CONFIG
+            'linger.ms': 1000,
+            **self.DEFAULT_CONFIG,
         }
         extra_config = format_extra_config(kwargs.get('--extra-config') or {})
         config = {**config, **extra_config}
@@ -53,5 +56,7 @@ class Producer:
             key = self.key or str(uuid.uuid4())
             self.producer.produce(key=key, value=self.value, topic=self.topic)
             self.producer.poll(0)
+            if self.per_second:
+                sleep(1 / self.per_second)
 
         self.producer.flush()
