@@ -19,7 +19,8 @@ setup(
         "docopt>=0.6.2",
         "structlog>=17.2.0",
         "requests",
-        "confluent_kafka_helpers>=0.6.1"
+        "confluent_kafka_helpers>=0.6.1",
+        "colorama"
     ],
     zip_safe=False
 )

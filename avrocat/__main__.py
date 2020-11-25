@@ -42,7 +42,6 @@ arguments = docopt(__doc__)
 def main():
     consume = arguments.pop('consume')
     produce = arguments.pop('produce')
-    breakpoint()
     avrocat = AvroCat(**arguments)
     if consume:
         avrocat.consume()
