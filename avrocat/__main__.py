@@ -7,7 +7,7 @@ Usage:
                              [-X <extra_config>]
   avrocat consume -t <topic> [--exit] [-g <group>] [-b <broker>] [-r <registry]
                              [(-P <partitions> -k <key>)] [-X <extra_config>]
-                             [--enable-timestamps] [--remove-null-values] [--headers]
+                             [--enable-timestamps] [--enable-headers] [--remove-null-values]
 
 Commands:
   produce                             Produce Avro message to a topic.
@@ -42,6 +42,7 @@ arguments = docopt(__doc__)
 def main():
     consume = arguments.pop('consume')
     produce = arguments.pop('produce')
+    breakpoint()
     avrocat = AvroCat(**arguments)
     if consume:
         avrocat.consume()
