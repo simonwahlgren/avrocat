@@ -34,7 +34,7 @@ class Consumer:
             'group.id': self._group,
             'enable.auto.commit': True,
             'default.topic.config': {
-                'auto.offset.reset': self._offset_reset or 'earliest'
+                'auto.offset.reset': self._offset_reset
             },
             **extra_config
         }
