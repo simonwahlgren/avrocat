@@ -8,9 +8,9 @@ from fastavro.validation import validate
 
 class Validate:
     def __init__(self, client=SchemaRegistryClient, **kwargs):
-        self.registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
-        self.topic = kwargs['--topic']
-        self.file = kwargs['--file']
+        self.registry = os.getenv("SCHEMA_REGISTRY_URL", kwargs["--registry"])
+        self.topic = kwargs["--topic"]
+        self.file = kwargs["--file"]
         with open(self.file) as file:
             self.value = json.load(file)
 

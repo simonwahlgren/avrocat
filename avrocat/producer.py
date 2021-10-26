@@ -4,9 +4,9 @@ import sys
 import uuid
 from time import sleep
 
-from avrocat.utils import format_extra_config
-
 from confluent_kafka_helpers.producer import AvroProducer
+
+from avrocat.utils import format_extra_config
 
 
 class InvalidJSON(Exception):
@@ -17,26 +17,26 @@ class Producer:
     DEFAULT_CONFIG = {}
 
     def __init__(self, producer=AvroProducer, **kwargs):
-        self.broker = os.getenv('KAFKA_BROKERS', kwargs['--broker'])
-        self.registry = os.getenv('SCHEMA_REGISTRY_URL', kwargs['--registry'])
-        self.topic = kwargs['--topic']
-        self.key = kwargs['--key']
-        self.num_messages = int(kwargs['--num-messages'])
-        self.per_second = int(kwargs.get('--per-second', 0) or 0)
-        self.value, self.stdin = kwargs['--value'], sys.stdin
-        self.file = kwargs['--file']
+        self.broker = os.getenv("KAFKA_BROKERS", kwargs["--broker"])
+        self.registry = os.getenv("SCHEMA_REGISTRY_URL", kwargs["--registry"])
+        self.topic = kwargs["--topic"]
+        self.key = kwargs["--key"]
+        self.num_messages = int(kwargs["--num-messages"])
+        self.per_second = int(kwargs.get("--per-second", 0) or 0)
+        self.value, self.stdin = kwargs["--value"], sys.stdin
+        self.file = kwargs["--file"]
         if self.file:
             with open(self.file) as json_file:
                 self.value = json_file.read()
 
         config = {
-            'bootstrap.servers': self.broker,
-            'schema.registry.url': self.registry,
-            'topics': [self.topic],
-            'linger.ms': 1000,
+            "bootstrap.servers": self.broker,
+            "schema.registry.url": self.registry,
+            "topics": [self.topic],
+            "linger.ms": 1000,
             **self.DEFAULT_CONFIG,
         }
-        extra_config = format_extra_config(kwargs.get('--extra-config') or {})
+        extra_config = format_extra_config(kwargs.get("--extra-config") or {})
         config = {**config, **extra_config}
 
         self.producer = producer(config)

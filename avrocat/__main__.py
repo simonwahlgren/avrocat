@@ -42,9 +42,9 @@ arguments = docopt(__doc__)
 
 
 def main():
-    consume = arguments.pop('consume')
-    produce = arguments.pop('produce')
-    validate = arguments.pop('validate')
+    consume = arguments.pop("consume")
+    produce = arguments.pop("produce")
+    validate = arguments.pop("validate")
 
     avrocat = AvroCat(**arguments)
     if consume:
