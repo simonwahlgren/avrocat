@@ -1,5 +1,5 @@
 """
-Kafka Avro producer and consumer.
+Kafka Avro producer, consumer.
 
 Usage:
   avrocat produce -t <topic> ([-v <value>] | [-f <file>]) [-k <key>] [-b <broker>]
@@ -8,10 +8,12 @@ Usage:
   avrocat consume -t <topic> [--exit] [-g <group>] [-b <broker>] [-r <registry]
                              [(-P <partitions> -k <key>)] [-X <extra_config>]
                              [--enable-timestamps] [--enable-headers] [--remove-null-values]
+  avrocat validate -t <topic> -f <file> [-r <registry>]
 
 Commands:
-  produce                             Produce Avro message to a topic.
-  consumer                            Consume Avro messages from one or multiple topics.
+  produce                             Produce an Avro message to a topic.
+  consumer                            Consume an Avro messages from one or multiple topics.
+  validate                            Validate an Avro message against an Avro schema
 
 Options:
   -t --topic=<topic>                    One (P) or multiple (C) comma separated topics.
@@ -42,11 +44,15 @@ arguments = docopt(__doc__)
 def main():
     consume = arguments.pop('consume')
     produce = arguments.pop('produce')
+    validate = arguments.pop('validate')
+
     avrocat = AvroCat(**arguments)
     if consume:
         avrocat.consume()
     elif produce:
         avrocat.produce()
+    elif validate:
+        avrocat.validate()
 
 
 if __name__ == "__main__":
