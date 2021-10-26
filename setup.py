@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="avrocat",
-    version="0.4",
+    version="0.5",
     description="Kafka Avro consumer and producer",
     url="https://github.com/simonwahlgren/avrocat",
     author="Simon Wahlgren",
