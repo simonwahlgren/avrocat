@@ -1,5 +1,5 @@
 """
-Kafka Avro producer and consumer.
+Kafka Avro producer, consumer.
 
 Usage:
   avrocat produce -t <topic> ([-v <value>] | [-f <file>]) [-k <key>] [-b <broker>]
@@ -9,10 +9,12 @@ Usage:
                              [(-P <partitions> -k <key>)] [-X <extra_config>]
                              [--enable-timestamps] [--enable-headers] [--remove-null-values]
                              [--offset-reset <auto.offset.reset_value>]
+  avrocat validate -t <topic> -f <file> [-r <registry>]
 
 Commands:
-  produce                             Produce Avro message to a topic.
-  consumer                            Consume Avro messages from one or multiple topics.
+  produce                             Produce an Avro message to a topic.
+  consumer                            Consume an Avro messages from one or multiple topics.
+  validate                            Validate an Avro message against an Avro schema
 
 Options:
   -t --topic=<topic>                           One (P) or multiple (C) comma separated topics.
@@ -24,14 +26,15 @@ Options:
   -b --broker=<broker>                         Kafka broker address [default: localhost:9094].
   -r --registry=<registry>                     Schema registry URL [default: http://localhost:8081].
   -g --group=<group>                           Consumer group.
-  -P --partitions=<partitions>                 Number of partitions on topic. Must be set when using --key
-                                               [default: 8].
+  -P --partitions=<partitions>                 Number of partitions on topic [default: 8].
   -X --extra-config=<extra_config>             Extra configuration properties passed to librdkafka.
                                                Example: -X prop=val,prop=val
   --enable-timestamps                          Display message timestamps [default: False].
   --enable-headers                             Display message headers [default: False].
-  --remove-null-values                         Remove null values from consumed messages [default: False].
-  --offset-reset=<auto.offset.reset_value>     Value to be used as auto.offset.reset. [default: earliest].
+  --remove-null-values                         Remove null values from consumed messages
+                                               [default: False].
+  --offset-reset=<auto.offset.reset_value>     Value to be used as auto.offset.reset
+                                               [default: earliest].
   --exit                                       Exit after last message is consumed.
 """
 from docopt import docopt
@@ -42,13 +45,17 @@ arguments = docopt(__doc__)
 
 
 def main():
-    consume = arguments.pop('consume')
-    produce = arguments.pop('produce')
+    consume = arguments.pop("consume")
+    produce = arguments.pop("produce")
+    validate = arguments.pop("validate")
+
     avrocat = AvroCat(**arguments)
     if consume:
         avrocat.consume()
     elif produce:
         avrocat.produce()
+    elif validate:
+        avrocat.validate()
 
 
 if __name__ == "__main__":

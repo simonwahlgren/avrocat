@@ -1,4 +1,4 @@
-## Avrocat
+# Avrocat
 
 CLI tool for consuming and producing Avro messages from Kafka.
 
@@ -8,33 +8,28 @@ CLI tool for consuming and producing Avro messages from Kafka.
 
 ## Usage
 
-### Consume
+### Consume all messages
 
-#### Find all events with given key
+    avrocat consume -t <topic> -b <broker> -r <schema_registry>
 
-    avrocat consume -t <topic> -b <broker> -r <schema_registry> --enable-timestamps -k <key> -P <num_partitions>
+### Consume messages with given key
 
-#### Load all events for a topic
+    avrocat consume -t <topic> -b <broker> -r <schema_registry> -k <key> -P <num_partitions>
 
-    avrocat consume -t <topic> -b <broker> -r <schema_registry> --enable-timestamps
-
-### Produce
+### Produce message
 
     cat << EOF > CreateFoo.json
     {
         "class": "CreateFoo",
         "data": {
-            "id": "",
+            "id": "12345",
             "foo": "foo"
         }
     }
     EOF
-    UUID=$(uuidgen)
 
-#### Produce a message using JSON input
+    cat CreateFoo.json | avrocat produce -t <topic> -n <num_messages>
 
-    jq --arg uuid $UUID '.data.id=$uuid' CreateFoo.json | avrocat produce -t <topic> -n <num_messages> -k $UUID
+### Validate JSON against schema
 
-#### Produce 10 events every second
-
-    jq --arg uuid $UUID '.data.id=$uuid' CreateFoo.json | avrocat produce -t <topic> -n <num_messages> -k $UUID -s 10
+    avrocat validate -t <topic> -f CreateFoo.json

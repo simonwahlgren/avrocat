@@ -7,3 +7,5 @@ pdbpp
 
 flake8
 flake8-isort
+flake8-black
+black
