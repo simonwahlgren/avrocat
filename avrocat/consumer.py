@@ -23,6 +23,7 @@ class Consumer:
         self._enable_timestamps = kwargs['--enable-timestamps']
         self._remove_null_values = kwargs['--remove-null-values']
         self._enable_headers = kwargs['--enable-headers']
+        self._offset_reset = kwargs['--offset-reset']
 
         extra_config = format_extra_config(kwargs.get('--extra-config') or {})
         self.consumer_config = {
@@ -31,8 +32,10 @@ class Consumer:
             'topics': [self._topic],
             'group.id': self._group,
             'enable.auto.commit': True,
-            'default.topic.config': {'auto.offset.reset': 'earliest'},
-            **extra_config,
+            'default.topic.config': {
+                'auto.offset.reset': self._offset_reset
+            },
+            **extra_config
         }
         self.loader_config = {
             'bootstrap.servers': self._broker,
