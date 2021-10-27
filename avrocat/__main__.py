@@ -1,4 +1,4 @@
-"""
+'''
 Kafka Avro producer, consumer.
 
 Usage:
@@ -33,7 +33,7 @@ Options:
   --enable-headers                      Display message headers [default: False].
   --remove-null-values                  Remove null values from consumed messages [default: False].
   --exit                                Exit after last message is consumed.
-"""
+'''
 from docopt import docopt
 
 from avrocat import AvroCat
@@ -42,9 +42,9 @@ arguments = docopt(__doc__)
 
 
 def main():
-    consume = arguments.pop("consume")
-    produce = arguments.pop("produce")
-    validate = arguments.pop("validate")
+    consume = arguments.pop('consume')
+    produce = arguments.pop('produce')
+    validate = arguments.pop('validate')
 
     avrocat = AvroCat(**arguments)
     if consume:
@@ -55,5 +55,5 @@ def main():
         avrocat.validate()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
