@@ -26,14 +26,15 @@ Options:
   -b --broker=<broker>                         Kafka broker address [default: localhost:9094].
   -r --registry=<registry>                     Schema registry URL [default: http://localhost:8081].
   -g --group=<group>                           Consumer group.
-  -P --partitions=<partitions>                 Number of partitions on topic. Must be set when using --key
-                                               [default: 8].
+  -P --partitions=<partitions>                 Number of partitions on topic [default: 8].
   -X --extra-config=<extra_config>             Extra configuration properties passed to librdkafka.
                                                Example: -X prop=val,prop=val
   --enable-timestamps                          Display message timestamps [default: False].
   --enable-headers                             Display message headers [default: False].
-  --remove-null-values                         Remove null values from consumed messages [default: False].
-  --offset-reset=<auto.offset.reset_value>     Value to be used as auto.offset.reset. [default: earliest].
+  --remove-null-values                         Remove null values from consumed messages
+                                               [default: False].
+  --offset-reset=<auto.offset.reset_value>     Value to be used as auto.offset.reset
+                                               [default: earliest].
   --exit                                       Exit after last message is consumed.
 """
 from docopt import docopt
