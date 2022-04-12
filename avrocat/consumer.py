@@ -47,27 +47,24 @@ class Consumer:
             },
         }
 
+    def _dump_data(self, message):
+        data = {
+            "datetime": str(message._meta.datetime),
+            "partition": message._meta.partition,
+            "key": message._meta.key,
+            "value": message.value,
+        }
+        if self._enable_headers:
+            data["headers"] = str(message._raw.headers())
+        print(json.dumps(data))
+
     def consume(self):
         if self._key:
             self.loader = AvroMessageLoader(self.loader_config)
             for message in self.loader.load(self._key):
-                data = {
-                    "datetime": str(message._meta.datetime),
-                    "partition": message._meta.partition,
-                    "key": message._meta.key,
-                    "value": message.value,
-                }
-                print(json.dumps(data))
+                self._dump_data(message)
         else:
             self.consumer = AvroConsumer(self.consumer_config)
             with self.consumer as consumer:
                 for message in consumer:
-                    data = {
-                        "datetime": str(message._meta.datetime),
-                        "partition": message._meta.partition,
-                        "key": message._meta.key,
-                        "value": message.value,
-                    }
-                    if self._enable_headers:
-                        data["headers"] = str(message._raw.headers())
-                    print(json.dumps(data))
+                    self._dump_data(message)
