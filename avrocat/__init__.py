@@ -1,14 +1,17 @@
-import pkg_resources
+try:
+    import pkg_resources
+    __version__ = pkg_resources.require("avrocat")[0].version
+except ImportError:
+    __version__ = "unknown"
 
 from avrocat import log_config
-
-__version__ = pkg_resources.require("avrocat")[0].version
 
 log_config.setup()
 
 from avrocat.consumer import Consumer  # isort: skip  # noqa
 from avrocat.producer import Producer  # isort: skip  # noqa
 from avrocat.validate import Validate  # isort: skip  # noqa
+from avrocat.reproduce import Reproduce  # isort: skip  # noqa
 
 
 class AvroCat:
@@ -23,3 +26,6 @@ class AvroCat:
 
     def validate(self):
         Validate(**self.kwargs).validate()
+
+    def reproduce(self):
+        Reproduce(**self.kwargs).reproduce()
