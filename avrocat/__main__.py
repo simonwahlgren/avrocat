@@ -3,8 +3,8 @@ Kafka Avro producer, consumer.
 
 Usage:
   avrocat produce -t <topic> ([-v <value>] | [-f <file>]) [-k <key>] [-b <broker>]
-                             [-r <registry>] [-n <num_messages>] [-s <per_second]
-                             [-X <extra_config>]
+                             [-r <registry>] [-n <num_messages>] [-s <per_second>]
+                             [-X <extra_config>] [--header <key=value>]...
   avrocat consume -t <topic> [--exit] [-g <group>] [-b <broker>] [-r <registry>]
                              [(-P <partitions> -k <key>)] [-X <extra_config>]
                              [--enable-timestamps] [--enable-headers] [--remove-null-values]
@@ -35,6 +35,7 @@ Options:
                                                [default: False].
   --offset-reset=<auto.offset.reset_value>     Value to be used as auto.offset.reset
                                                [default: earliest].
+  --header=<key=value>                         Message headers (can be used multiple times).
   --exit                                       Exit after last message is consumed.
 """
 from docopt import docopt

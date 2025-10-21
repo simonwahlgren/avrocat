@@ -30,6 +30,10 @@ CLI tool for consuming and producing Avro messages from Kafka.
 
     cat CreateFoo.json | avrocat produce -t <topic> -n <num_messages>
 
+### Produce message with headers
+
+    avrocat produce -t <topic> -v '{"id": "123", "name": "test"}' --header key=value --header anotherkey=value
+
 ### Validate JSON against schema
 
     avrocat validate -t <topic> -f CreateFoo.json

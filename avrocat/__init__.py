@@ -1,8 +1,4 @@
-import pkg_resources
-
 from avrocat import log_config
-
-__version__ = pkg_resources.require("avrocat")[0].version
 
 log_config.setup()
 
