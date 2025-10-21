@@ -3,18 +3,21 @@ Kafka Avro producer, consumer.
 
 Usage:
   avrocat produce -t <topic> ([-v <value>] | [-f <file>]) [-k <key>] [-b <broker>]
-                             [-r <registry>] [-n <num_messages>] [-s <per_second]
+                             [-r <registry>] [-n <num_messages>] [-s <per_second>]
                              [-X <extra_config>]
   avrocat consume -t <topic> [--exit] [-g <group>] [-b <broker>] [-r <registry>]
                              [(-P <partitions> -k <key>)] [-X <extra_config>]
                              [--enable-timestamps] [--enable-headers] [--remove-null-values]
                              [--offset-reset <auto.offset.reset_value>]
   avrocat validate -t <topic> -f <file> [-r <registry>]
+  avrocat reproduce -t <topic> -P <partition> -k <key> -o <offset> [-T <reproduce_topic>]
+                             [-b <broker>] [-r <registry>] [-X <extra_config>]
 
 Commands:
   produce                             Produce an Avro message to a topic.
   consumer                            Consume an Avro messages from one or multiple topics.
   validate                            Validate an Avro message against an Avro schema
+  reproduce                           Reproduce a specific message from Kafka to the same or different topic
 
 Options:
   -t --topic=<topic>                           One (P) or multiple (C) comma separated topics.
@@ -27,6 +30,8 @@ Options:
   -r --registry=<registry>                     Schema registry URL [default: http://localhost:8081].
   -g --group=<group>                           Consumer group.
   -P --partitions=<partitions>                 Number of partitions on topic [default: 8].
+  -o --offset=<offset>                         Message offset (for reproduce command).
+  -T --reproduce-topic=<reproduce_topic>       Topic to reproduce message to (optional, defaults to source topic).
   -X --extra-config=<extra_config>             Extra configuration properties passed to librdkafka.
                                                Example: -X prop=val,prop=val
   --enable-timestamps                          Display message timestamps [default: False].
@@ -48,6 +53,7 @@ def main():
     consume = arguments.pop("consume")
     produce = arguments.pop("produce")
     validate = arguments.pop("validate")
+    reproduce = arguments.pop("reproduce")
 
     avrocat = AvroCat(**arguments)
     if consume:
@@ -56,6 +62,8 @@ def main():
         avrocat.produce()
     elif validate:
         avrocat.validate()
+    elif reproduce:
+        avrocat.reproduce()
 
 
 if __name__ == "__main__":
